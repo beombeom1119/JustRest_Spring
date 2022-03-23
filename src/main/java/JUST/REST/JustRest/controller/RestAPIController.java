@@ -16,11 +16,6 @@ public class RestAPIController {
     PlayerRepository playerRepository;          //Autowired를 통해 playerRepository를 연결
 
 
-//    public RestAPIController(PlayerRepository playerRepository) {
-//        this.playerRepository = playerRepository;
-//    }
-
-
     @GetMapping("/get")                                    //선수들 불러오기
     public List<Player> getPlayer() {
         return (List<Player>) playerRepository.findAll();
@@ -38,8 +33,8 @@ public class RestAPIController {
         return player;
     }
 
-    @PutMapping("/addgoal/{number}")                    ///선수의 번호를 통해서 골 수 추가
-    public Player addGoal(@PathVariable Long number) {
+    @PutMapping("/score/{number}")                    ///선수의 번호를 통해서 골 수 추가
+    public Player score(@PathVariable Long number) {
         Optional<Player> score_player = playerRepository.findById(number);
         Player player = new Player();
         player.setNumber(score_player.get().getNumber());
@@ -49,6 +44,7 @@ public class RestAPIController {
         playerRepository.save(player);
         return player;
     }
+
 
     @DeleteMapping("/delete/{number}")                      //선수 삭제
     public String deletePlayer(@PathVariable Long number) {
